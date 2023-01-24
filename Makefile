@@ -4,14 +4,14 @@ install:
 start:
 	poetry run python manage.py runserver
 
-makemig:
+makemigrate:
 	poetry run python manage.py makemigrations
 
-mig:
+migrate:
 	poetry run python manage.py migrate
 
 shell:
-	poetry run python manage.py shell_plus
+	poetry run python manage.py shell_plus --ipython
 
 lint:
 	poetry run flake8 task_manager

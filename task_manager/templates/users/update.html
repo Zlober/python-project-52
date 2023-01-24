@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block h1 %}{% trans "Изменение пользователя" %}{% endblock %}
+{% block content %}
+<form method="post">
+  {% csrf_token %}
+  {% bootstrap_form form %}
+      {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% trans "Изменить" %}
+    </button>
+  {% endbuttons %}
+</form>
+{% endblock %}
