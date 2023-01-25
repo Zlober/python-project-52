@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy
 from django.views import View
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
@@ -17,10 +18,16 @@ class Login(SuccessMessageMixin, LoginView):
     success_message = _('Вы залогинены')
     success_url = '/'
 
+    def get_success_url(self):
+        return reverse_lazy('index')
+
 
 class Logout(LogoutView):
 
     def dispatch(self, request, *args, **kwargs):
         messages.info(request, _('Вы разлогинены'))
         return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        return reverse_lazy('index')
 

@@ -18,5 +18,3 @@ class RegUserForm(UserCreationForm):
         help_texts = {
             'username': _('Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./+/-/_.'),
         }
-
-

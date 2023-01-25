@@ -28,29 +28,28 @@ class CreateUser(SuccessMessageMixin, CreateView):
         return reverse('login')
 
 
-class PermissionMixin(LoginRequiredMixin):
+class PermissionMixin:
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.add_message(request, level=messages.ERROR, extra_tags='danger',
-                                 message=self.permission_denied_message)
-            return self.handle_no_permission()
-        return super().dispatch(self, *args, **kwargs)
+            messages.error(request, _('Вы не авторизованы! Пожалуйста, выполните вход.'), extra_tags='danger')
+            return redirect('users')
+        elif request.user.id != kwargs.get('pk'):
+            messages.error(request, _('У вас нет прав для изменения другого пользователя.'), extra_tags='danger')
+            return redirect('users')
+        return super().dispatch(request, *args, **kwargs)
 
 
-class UpdateUser(PermissionMixin, SuccessMessageMixin, UpdateView):
+class UpdateUser(SuccessMessageMixin, PermissionMixin, UpdateView):
     model = User
     template_name = 'users/update.html'
     form_class = forms.RegUserForm
     success_message = _('Пользователь успешно изменён')
     success_url = '/users'
-    permission_denied_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
-    if UpdateView.pk_url_kwarg == UpdateView.
 
 
-class DeleteUser(PermissionMixin, SuccessMessageMixin, DeleteView):
+class DeleteUser(SuccessMessageMixin, PermissionMixin, DeleteView):
     model = User
     template_name = 'users/delete.html'
     success_message = _('Пользователь успешно удалён')
     success_url = '/users'
-    permission_denied_message = _('Вы не авторизованы! Пожалуйста, выполните вход.')
