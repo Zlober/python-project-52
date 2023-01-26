@@ -20,6 +20,11 @@
           <li class="nav-item">
             <a class="nav-link" href="/users/">{% trans "Пользователи" %}</a>
           </li>
+            {% if request.user.is_active %}
+            <li class="nav-item">
+            <a class="nav-link" href="/statuses/">{% trans "Статусы" %}</a>
+          </li>
+            {% endif %}
 
         </ul>
 

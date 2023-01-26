@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% block h1 %}{% trans "Статусы" %}{% endblock %}
+{% block content %}
+    <a class="nav-link" href="{% url 'create_status' %}">{% trans "Создать статус" %}</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>{% trans "Имя" %}</th>
+      <th>{% trans "Дата создания" %}</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+{% if statuses %}
+    {% for status in statuses %}
+      <tr>
+        <td>{{status.id}}</td>
+        <td>{{status.name}}</td>
+        <td>{{status.created_at|date:"d.m.Y h:m"}}</td>
+        <td>
+          <a href="{% url 'update_status' status.id%}">Изменить</a>
+          <br>
+          <a href="{% url 'delete_status' status.id%}">Удалить</a>
+        </td>
+      </tr>
+    {% endfor %}
+{% endif %}
+      </tbody>
+</table>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.urls import reverse_lazy
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -30,4 +30,22 @@ class Logout(LogoutView):
 
     def get_success_url(self):
         return reverse_lazy('index')
+
+
+class AuthPermissionMixin(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, _('Вы не авторизованы! Пожалуйста, выполните вход.'), extra_tags='danger')
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class PermissionMixin(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.id != kwargs.get('pk'):
+            messages.error(request, _('У вас нет прав для изменения другого пользователя.'), extra_tags='danger')
+            return redirect(self.url_redirect)
+        return super().dispatch(request, *args, **kwargs)
 
