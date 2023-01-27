@@ -42,10 +42,11 @@ class AuthPermissionMixin(View):
 
 
 class PermissionMixin(View):
+    msg = _('У вас нет прав для изменения другого пользователя.')
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.id != kwargs.get('pk'):
-            messages.error(request, _('У вас нет прав для изменения другого пользователя.'), extra_tags='danger')
+            messages.error(request, self.msg, extra_tags='danger')
             return redirect(self.url_redirect)
         return super().dispatch(request, *args, **kwargs)
 

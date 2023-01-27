@@ -6,8 +6,9 @@ from .models import StatusModel
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 from task_manager.views import AuthPermissionMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.db.models import ProtectedError
 
 
 class StatusesMixin(SuccessMessageMixin, AuthPermissionMixin):
@@ -34,4 +35,12 @@ class UpdateStatus(StatusesMixin, UpdateView):
 
 class DeleteStatus(StatusesMixin, DeleteView):
     template_name = 'statuses/delete.html'
-    success_message = _('Статус успешно удалён')
+
+    def post(self, request, *args, **kwargs):
+        try:
+            self.delete(request, *args, **kwargs)
+            messages.success(self.request, _('Статус успешно удалён'))
+            return redirect(reverse_lazy('statuses'))
+        except ProtectedError:
+            messages.error(self.request, _('Невозможно удалить статус, потому что он используется'), extra_tags='danger')
+            return redirect(reverse_lazy('statuses'))
