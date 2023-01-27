@@ -4,7 +4,7 @@ from task_manager.statuses.models import StatusModel
 
 
 class TasksModel(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
     creator = models.CharField(max_length=255)
     work_user = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
