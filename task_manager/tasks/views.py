@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from .models import TasksModel
 from .forms import TaskForm
 from django.contrib.auth.models import User
@@ -7,7 +7,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from django.contrib import messages
-
+from django_filters.views import FilterView
+from task_manager.tasks.filter import FilterForm
 
 
 class TasksMixin(SuccessMessageMixin):
@@ -16,7 +17,9 @@ class TasksMixin(SuccessMessageMixin):
     success_url = reverse_lazy('tasks')
 
 
-class Index(TasksMixin, ListView):
+class Index(TasksMixin, FilterView):
+    model = TasksModel
+    filterset_class = FilterForm
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
 

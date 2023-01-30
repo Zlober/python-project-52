@@ -18,7 +18,6 @@ class StatusesMixin(SuccessMessageMixin, AuthPermissionMixin):
 
 
 class Index(StatusesMixin, ListView):
-    model = StatusModel
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
 
@@ -33,7 +32,8 @@ class UpdateStatus(StatusesMixin, UpdateView):
     success_message = _('Статус успешно изменён')
 
 
-class DeleteStatus(StatusesMixin, DeleteView):
+class DeleteStatus(DeleteView):
+    model = StatusModel
     template_name = 'statuses/delete.html'
 
     def post(self, request, *args, **kwargs):

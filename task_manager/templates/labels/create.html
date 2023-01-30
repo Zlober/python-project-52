@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap4 %}
-{% block h1 %}{% trans "Изменение статуса" %}{% endblock %}
+{% block h1 %}{% trans "Создать метку" %}{% endblock %}
 {% block content %}
     <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}
 <button type="submit" class="btn btn-primary">
-      {% trans "Изменить" %}
+      {% trans "Создать" %}
     </button>
     </form>
 {% endblock %}

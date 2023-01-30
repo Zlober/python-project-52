@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 {% block h1 %}{% trans "Удаление задачи" %}{% endblock %}
 {% block content %}
     <p>{% trans "Вы уверены, что хотите удалить" %} {{ taskmodel.name }}</p>

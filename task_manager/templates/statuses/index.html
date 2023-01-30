@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 {% block h1 %}{% trans "Статусы" %}{% endblock %}
 {% block content %}
     <a class="nav-link" href="{% url 'create_status' %}">{% trans "Создать статус" %}</a>

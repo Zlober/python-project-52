@@ -1,11 +1,25 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 {% block h1 %}{% trans "Задачи" %}{% endblock %}
 {% block content %}
     <a class="nav-link" href="{% url 'create_task' %}">{% trans "Создать задачу" %}</a>
+    <div class="card mb-3">
+    <div class="card-body bg-light">
+<form class="form-inline center" method="get">
+                {% bootstrap_field filter.form.statuses field_class='ml-2 mr-3' %}
+                {% bootstrap_field filter.form.work_user field_class='ml-2 mr-3' %}
+                {% bootstrap_field filter.form.labels field_class='ml-2 mr-3' %}
+                {% bootstrap_field filter.form.self_tasks field_class='ml-2 mr-3' %}
+
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="{% trans "Показать" %}">
+    </div>
+</form>
+
+    </div>
+
+    </div>
 <table class="table table-striped">
   <thead>
     <tr>

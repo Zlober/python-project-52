@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% block h1 %}{% trans "Метки" %}{% endblock %}
+{% block content %}
+    <a class="nav-link" href="{% url 'create_labels' %}">{% trans "Создать метку" %}</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>{% trans "Имя" %}</th>
+      <th>{% trans "Дата создания" %}</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+{% if labels %}
+    {% for label in labels %}
+      <tr>
+        <td>{{label.id}}</td>
+        <td>{{label.name}}</td>
+        <td>{{label.created_at|date:"d.m.Y h:m"}}</td>
+        <td>
+          <a href="{% url 'update_labels' label.id%}">Изменить</a>
+          <br>
+          <a href="{% url 'delete_labels' label.id%}">Удалить</a>
+        </td>
+      </tr>
+    {% endfor %}
+{% endif %}
+      </tbody>
+</table>
+{% endblock %}
