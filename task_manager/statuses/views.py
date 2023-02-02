@@ -35,6 +35,7 @@ class UpdateStatus(StatusesMixin, UpdateView):
 class DeleteStatus(DeleteView):
     model = StatusModel
     template_name = 'statuses/delete.html'
+    success_url = reverse_lazy('statuses')
 
     def post(self, request, *args, **kwargs):
         try:
