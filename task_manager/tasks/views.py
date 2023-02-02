@@ -9,9 +9,10 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django_filters.views import FilterView
 from task_manager.tasks.filter import FilterForm
+from task_manager.views import AuthPermissionMixin
 
 
-class TasksMixin(SuccessMessageMixin):
+class TasksMixin(SuccessMessageMixin, AuthPermissionMixin):
     model = TasksModel
     form_class = TaskForm
     success_url = reverse_lazy('tasks')
@@ -38,7 +39,7 @@ class UpdateTask(TasksMixin, UpdateView):
     success_message = 'Задача успешно изменена'
 
 
-class DeleteTask(SuccessMessageMixin, DeleteView):
+class DeleteTask(SuccessMessageMixin, AuthPermissionMixin, DeleteView):
     model = TasksModel
     success_url = reverse_lazy('tasks')
     template_name = 'tasks/delete.html'

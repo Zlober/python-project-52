@@ -2,18 +2,21 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.messages import get_messages
+from task_manager.tasks.models import TasksModel
+from django.contrib.auth.models import User
+from task_manager.statuses.models import StatusModel
 
 
 class TestUser(TestCase):
 
     def setUp(self):
-        user1 = User.objects.create_user(
+        User.objects.create_user(
             username='user1',
             first_name='user1_first_name',
             last_name='user1_last_name',
             password='123',
         )
-        user2 = User.objects.create_user(
+        User.objects.create_user(
             username='user2',
             password='321',
             first_name='user2_first_name',
@@ -129,3 +132,19 @@ class TestUser(TestCase):
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(str(messages[0]), 'У вас нет прав для изменения другого пользователя.')
+
+    def test_user_applied_task(self):
+        user1 = User.objects.get(username='user1')
+        status1 = StatusModel.objects.create(name='status1')
+        TasksModel.objects.create(
+            name='test_task',
+            description='test_description',
+            creator=user1,
+            statuses=status1,
+            work_user=user1
+        )
+        self.client.force_login(user1)
+        response = self.client.post(reverse('delete_user', kwargs={'pk': user1.id}))
+        self.assertEqual(response.status_code, 302)
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(str(messages[0]), 'Невозможно удалить пользователя, потому что он используется')
