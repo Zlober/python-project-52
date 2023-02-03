@@ -212,18 +212,15 @@ files = [
 
 [[package]]
 name = "dj-database-url"
-version = "1.2.0"
+version = "0.5.0"
 description = "Use Database URLs in your Django Application."
 category = "main"
 optional = false
 python-versions = "*"
 files = [
-    {file = "dj-database-url-1.2.0.tar.gz", hash = "sha256:b23b15046cb38180e0c95207bcc90fe5e9dbde8eef16065907dd85cf4ca7036c"},
-    {file = "dj_database_url-1.2.0-py3-none-any.whl", hash = "sha256:5c2993b91801c0f78a8b19e642b497b90831124cbade0c265900d4c1037b4730"},
+    {file = "dj-database-url-0.5.0.tar.gz", hash = "sha256:4aeaeb1f573c74835b0686a2b46b85990571159ffc21aa57ecd4d1e1cb334163"},
+    {file = "dj_database_url-0.5.0-py2.py3-none-any.whl", hash = "sha256:851785365761ebe4994a921b433062309eb882fedd318e1b0fcecc607ed02da9"},
 ]
-
-[package.dependencies]
-Django = ">=3.2"
 
 [[package]]
 name = "django"
@@ -802,4 +799,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "00c482f761e7b04d59b5794b98e5d054e76344b71a2cc298139d8a77386fc4c9"
+content-hash = "0057333c1d317fbc2946459b3744a05424d32bf6c25aede7abd4f7c054ed6a3b"
