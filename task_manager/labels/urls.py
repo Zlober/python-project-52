@@ -5,6 +5,14 @@ from task_manager.labels import views
 urlpatterns = [
     path('', views.Index.as_view(), name='labels'),
     path('create/', views.CreateLabel.as_view(), name='create_labels'),
-    path('<int:pk>/update/', views.UpdateLabel.as_view(), name='update_labels'),
-    path('<int:pk>/delete/', views.DeleteLabel.as_view(), name='delete_labels'),
+    path(
+        '<int:pk>/update/',
+        views.UpdateLabel.as_view(),
+        name='update_labels'
+    ),
+    path(
+        '<int:pk>/delete/',
+        views.DeleteLabel.as_view(),
+        name='delete_labels',
+    ),
 ]

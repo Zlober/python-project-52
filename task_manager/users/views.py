@@ -1,4 +1,3 @@
-from django.views import View
 from django.shortcuts import redirect
 from django.contrib.auth.models import User
 from task_manager.users import forms
@@ -48,6 +47,10 @@ class DeleteUser(UserMixin, DeleteView):
             messages.success(self.request, _('Пользователь успешно удалён'))
             return redirect(reverse_lazy('users'))
         except ProtectedError:
-            messages.error(self.request, _('Невозможно удалить пользователя, потому что он используется'), extra_tags='danger')
+            messages.error(
+                self.request,
+                _('Невозможно удалить пользователя, '
+                  'потому что он используется'),
+                extra_tags='danger'
+            )
             return redirect(reverse_lazy('users'))
-

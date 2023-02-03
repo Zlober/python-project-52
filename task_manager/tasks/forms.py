@@ -6,8 +6,16 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TaskForm(forms.ModelForm):
-    work_user = forms.ModelChoiceField(queryset=User.objects.all(), required=False, label=_('Исполнитель'))
-    labels = forms.ModelMultipleChoiceField(queryset=LabelModel.objects.all(), required=False, label=_('Метки'))
+    work_user = forms.ModelChoiceField(
+        queryset=User.objects.all(),
+        required=False,
+        label=_('Исполнитель'),
+    )
+    labels = forms.ModelMultipleChoiceField(
+        queryset=LabelModel.objects.all(),
+        required=False,
+        label=_('Метки'),
+    )
 
     class Meta:
         model = TasksModel

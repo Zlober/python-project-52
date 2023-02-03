@@ -88,4 +88,7 @@ class TestLabels(TestCase):
         self.assertEqual(LabelModel.objects.count(), 2)
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Невозможно удалить метку, потому что она используется')
+        self.assertEqual(
+            str(messages[0]),
+            'Невозможно удалить метку, потому что она используется'
+        )

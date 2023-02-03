@@ -36,7 +36,11 @@ class AuthPermissionMixin(View):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            messages.error(request, _('Вы не авторизованы! Пожалуйста, выполните вход.'), extra_tags='danger')
+            messages.error(
+                request,
+                _('Вы не авторизованы! Пожалуйста, выполните вход.'),
+                extra_tags='danger'
+            )
             return redirect('login')
         return super().dispatch(request, *args, **kwargs)
 
@@ -49,4 +53,3 @@ class PermissionMixin(View):
             messages.error(request, self.msg, extra_tags='danger')
             return redirect(self.url_redirect)
         return super().dispatch(request, *args, **kwargs)
-

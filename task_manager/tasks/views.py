@@ -28,7 +28,7 @@ class Index(TasksMixin, FilterView):
 class CreateTask(TasksMixin, CreateView):
     template_name = 'tasks/create.html'
     success_message = _('Задача успешно создана')
-    
+
     def form_valid(self, form):
         form.instance.creator = User.objects.get(id=self.request.user.pk)
         return super().form_valid(form)
@@ -47,7 +47,11 @@ class DeleteTask(SuccessMessageMixin, AuthPermissionMixin, DeleteView):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.username != self.get_object().creator:
-            messages.error(request, _('Задачу может удалить только её автор'), extra_tags='danger')
+            messages.error(
+                request,
+                _('Задачу может удалить только её автор'),
+                extra_tags='danger',
+            )
             return redirect(reverse_lazy('tasks'))
         return super().dispatch(request, *args, **kwargs)
 

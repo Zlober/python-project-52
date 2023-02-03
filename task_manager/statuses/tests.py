@@ -28,7 +28,10 @@ class TestStatuses(TestCase):
         response = self.client.get(reverse('statuses'))
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Вы не авторизованы! Пожалуйста, выполните вход.')
+        self.assertEqual(
+            str(messages[0]),
+            'Вы не авторизованы! Пожалуйста, выполните вход.',
+        )
         self.assertRedirects(response, reverse('login'))
 
     def test_statuses_page_view(self):
@@ -37,7 +40,10 @@ class TestStatuses(TestCase):
         response = self.client.get(reverse('statuses'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/index.html')
-        self.assertEqual(len(response.context['statuses']), StatusModel.objects.count())
+        self.assertEqual(
+            len(response.context['statuses']),
+            StatusModel.objects.count()
+        )
 
     def test_statuses_page_create(self):
         user1 = User.objects.get(username='user1')
@@ -63,7 +69,9 @@ class TestStatuses(TestCase):
         user1 = User.objects.get(username='user1')
         status1 = StatusModel.objects.get(name='status1')
         self.client.force_login(user1)
-        response = self.client.get(reverse('update_status', kwargs={'pk': status1.id}))
+        response = self.client.get(
+            reverse('update_status', kwargs={'pk': status1.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/update.html')
         response = self.client.post(
@@ -81,10 +89,14 @@ class TestStatuses(TestCase):
         user1 = User.objects.get(username='user1')
         status1 = StatusModel.objects.get(name='status1')
         self.client.force_login(user1)
-        response = self.client.get(reverse('delete_status', kwargs={'pk': status1.id}))
+        response = self.client.get(
+            reverse('delete_status', kwargs={'pk': status1.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'statuses/delete.html')
-        response = self.client.post(reverse('delete_status', kwargs={'pk': status1.id}))
+        response = self.client.post(
+            reverse('delete_status', kwargs={'pk': status1.id})
+        )
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('statuses'))
         messages = list(get_messages(response.wsgi_request))
@@ -102,7 +114,12 @@ class TestStatuses(TestCase):
             work_user=user1
         )
         self.client.force_login(user2)
-        response = self.client.post(reverse('delete_status', kwargs={'pk': status1.id}))
+        response = self.client.post(
+            reverse('delete_status', kwargs={'pk': status1.id})
+        )
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Невозможно удалить статус, потому что он используется')
+        self.assertEqual(
+            str(messages[0]),
+            'Невозможно удалить статус, потому что он используется',
+        )

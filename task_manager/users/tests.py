@@ -1,5 +1,4 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
 from django.urls import reverse
 from django.contrib.messages import get_messages
 from task_manager.tasks.models import TasksModel
@@ -48,7 +47,10 @@ class TestUser(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.headers['Location'], reverse('login'))
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Пользователь успешно зарегистрирован')
+        self.assertEqual(
+            str(messages[0]),
+            'Пользователь успешно зарегистрирован'
+        )
         user = User.objects.last()
         self.assertEqual(user.username, 'user3')
         self.assertEqual(user.first_name, 'user3_first_name')
@@ -74,32 +76,46 @@ class TestUser(TestCase):
 
     def test_user_no_auth_update_page(self):
         user1 = User.objects.get(username='user1')
-        response = self.client.get(reverse('update_user', kwargs={'pk': user1.id}))
+        response = self.client.get(
+            reverse('update_user', kwargs={'pk': user1.id})
+        )
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.headers['Location'], reverse('login'))
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Вы не авторизованы! Пожалуйста, выполните вход.')
+        self.assertEqual(
+            str(messages[0]),
+            'Вы не авторизованы! Пожалуйста, выполните вход.'
+        )
 
     def test_user_no_permission_update_page(self):
         user1 = User.objects.get(username='user1')
         user2 = User.objects.get(username='user2')
         self.client.force_login(user1)
-        response = self.client.get(reverse('update_user', kwargs={'pk': user2.id}))
+        response = self.client.get(
+            reverse('update_user', kwargs={'pk': user2.id})
+        )
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'У вас нет прав для изменения другого пользователя.')
+        self.assertEqual(
+            str(messages[0]),
+            'У вас нет прав для изменения другого пользователя.',
+        )
 
     def test_user_success_update_page(self):
         user1 = User.objects.get(username='user1')
         self.client.force_login(user1)
-        response = self.client.get(reverse('update_user', kwargs={'pk': user1.id}))
+        response = self.client.get(
+            reverse('update_user', kwargs={'pk': user1.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/update.html')
 
     def test_user_success_delete_page(self):
         user1 = User.objects.get(username='user1')
         self.client.force_login(user1)
-        response = self.client.get(reverse('delete_user', kwargs={'pk': user1.id}))
+        response = self.client.get(
+            reverse('delete_user', kwargs={'pk': user1.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'users/delete.html')
 
@@ -120,7 +136,10 @@ class TestUser(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Вы не авторизованы! Пожалуйста, выполните вход.')
+        self.assertEqual(
+            str(messages[0]),
+            'Вы не авторизованы! Пожалуйста, выполните вход.',
+        )
 
     def test_user_no_permission_delete_page(self):
         user1 = User.objects.get(username='user1')
@@ -131,7 +150,10 @@ class TestUser(TestCase):
         )
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'У вас нет прав для изменения другого пользователя.')
+        self.assertEqual(
+            str(messages[0]),
+            'У вас нет прав для изменения другого пользователя.',
+        )
 
     def test_user_applied_task(self):
         user1 = User.objects.get(username='user1')
@@ -144,7 +166,12 @@ class TestUser(TestCase):
             work_user=user1
         )
         self.client.force_login(user1)
-        response = self.client.post(reverse('delete_user', kwargs={'pk': user1.id}))
+        response = self.client.post(
+            reverse('delete_user', kwargs={'pk': user1.id})
+        )
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Невозможно удалить пользователя, потому что он используется')
+        self.assertEqual(
+            str(messages[0]),
+            'Невозможно удалить пользователя, потому что он используется',
+        )

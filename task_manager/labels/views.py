@@ -42,5 +42,9 @@ class DeleteLabel(DeleteView):
             messages.success(request, _('Метка успешно удалена'))
             return redirect(reverse_lazy('labels'))
         except ProtectedError:
-            messages.error(self.request, _('Невозможно удалить метку, потому что она используется'), extra_tags='danger')
+            messages.error(
+                self.request,
+                _('Невозможно удалить метку, потому что она используется'),
+                extra_tags='danger',
+            )
             return redirect(reverse_lazy('labels'))

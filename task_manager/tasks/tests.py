@@ -15,7 +15,7 @@ class TestTasks(TestCase):
             first_name='user1_first_name',
             last_name='user1_last_name',
         )
-        user2 = User.objects.create_user(
+        User.objects.create_user(
             username='user2',
             password='123',
             first_name='user2_first_name',
@@ -37,13 +37,19 @@ class TestTasks(TestCase):
         response = self.client.get(reverse('tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/index.html')
-        self.assertEqual(len(response.context['tasks']), TasksModel.objects.count())
+        self.assertEqual(
+            len(response.context['tasks']),
+            TasksModel.objects.count()
+        )
 
     def test_task_view_no_auth(self):
         response = self.client.get(reverse('tasks'))
         self.assertEqual(response.status_code, 302)
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Вы не авторизованы! Пожалуйста, выполните вход.')
+        self.assertEqual(
+            str(messages[0]),
+            'Вы не авторизованы! Пожалуйста, выполните вход.'
+        )
         self.assertRedirects(response, reverse('login'))
 
     def test_task_create(self):

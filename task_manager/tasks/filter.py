@@ -1,5 +1,4 @@
 import django_filters
-from .models import TasksModel
 from task_manager.statuses.models import StatusModel
 from task_manager.labels.models import LabelModel
 from django.utils.translation import gettext_lazy as _

@@ -1,5 +1,4 @@
-from django.shortcuts import render, redirect
-from django.views import View
+from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
 from .forms import StatusForm
 from .models import StatusModel
@@ -43,5 +42,9 @@ class DeleteStatus(DeleteView):
             messages.success(self.request, _('Статус успешно удалён'))
             return redirect(reverse_lazy('statuses'))
         except ProtectedError:
-            messages.error(self.request, _('Невозможно удалить статус, потому что он используется'), extra_tags='danger')
+            messages.error(
+                self.request,
+                _('Невозможно удалить статус, потому что он используется'),
+                extra_tags='danger',
+            )
             return redirect(reverse_lazy('statuses'))
