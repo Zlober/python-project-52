@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: SECRET_KEY
     strategy:
       matrix:
         python-version: ["3.10"]
@@ -26,7 +27,6 @@ jobs:
         run: |
           make lint
       - name: Run tests
-        environment: SECRET_KEY
         env:
           PGDATABASE: ${{ secrets.PGDATABASE }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
