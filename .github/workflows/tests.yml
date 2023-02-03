@@ -25,5 +25,7 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          ENGINE: ${{ secrets.ENGINE }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
         run: |
           make tests
