@@ -98,8 +98,6 @@ if os.getenv('DB'):
     DATABASES = {
         'default': dj_database_url.config(
             default=os.getenv('DB'),
-            conn_max_age=600,
-            conn_health_checks=True,
         )
     }
 else:
