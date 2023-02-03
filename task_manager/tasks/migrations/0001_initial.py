@@ -19,26 +19,52 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='TaskLabelModel',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='labels.labelmodel')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')
+                 ),
+                ('label', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT,
+                    to='labels.labelmodel'),
+                 ),
             ],
         ),
         migrations.CreateModel(
             name='TasksModel',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID'),
+                 ),
                 ('name', models.CharField(max_length=255, unique=True)),
                 ('description', models.TextField()),
                 ('creator', models.CharField(max_length=255)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('labels', models.ManyToManyField(through='tasks.TaskLabelModel', to='labels.labelmodel')),
-                ('statuses', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='statuses.statusmodel')),
-                ('work_user', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to=settings.AUTH_USER_MODEL)),
+                ('labels', models.ManyToManyField(
+                    through='tasks.TaskLabelModel',
+                    to='labels.labelmodel'),
+                 ),
+                ('statuses', models.ForeignKey(
+                    on_delete=django.db.models.deletion.PROTECT,
+                    to='statuses.statusmodel'),
+                 ),
+                ('work_user', models.ForeignKey(
+                    null=True,
+                    on_delete=django.db.models.deletion.PROTECT,
+                    to=settings.AUTH_USER_MODEL),
+                 ),
             ],
         ),
         migrations.AddField(
             model_name='tasklabelmodel',
             name='task',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.tasksmodel'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.tasksmodel',
+            ),
         ),
     ]
