@@ -25,7 +25,7 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          ENGINE: ${{ secrets.ENGINE }}
+          ENGINE: 'django.db.backends.sqlite3'
           PGDATABASE: ${{ secrets.PGDATABASE }}
         run: |
           make tests
