@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-30 23:30+0300\n"
+"POT-Creation-Date: 2023-02-03 03:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: .\task_manager\labels\forms.py:13 .\task_manager\tasks\forms.py:20
+#: .\task_manager\labels\forms.py:13 .\task_manager\tasks\forms.py:22
 #: .\task_manager\templates\labels\index.html:11
 #: .\task_manager\templates\statuses\index.html:11
 #: .\task_manager\templates\tasks\index.html:27
@@ -26,7 +26,9 @@ msgid "Имя"
 msgstr "Name"
 
 #: .\task_manager\labels\views.py:26
-msgid "Метка успешно создан"
+#, fuzzy
+#| msgid "Метка успешно создан"
+msgid "Метка успешно создана"
 msgstr "Label created success"
 
 #: .\task_manager\labels\views.py:31
@@ -49,27 +51,27 @@ msgstr "Status created success"
 msgid "Статус успешно изменён"
 msgstr "Status updated success"
 
-#: .\task_manager\statuses\views.py:42
+#: .\task_manager\statuses\views.py:43
 msgid "Статус успешно удалён"
 msgstr "Status deleted success"
 
-#: .\task_manager\statuses\views.py:45
+#: .\task_manager\statuses\views.py:46
 msgid "Невозможно удалить статус, потому что он используется"
 msgstr "Can't delete status used by other user"
 
-#: .\task_manager\tasks\filter.py:12 .\task_manager\tasks\forms.py:22
+#: .\task_manager\tasks\filter.py:12 .\task_manager\tasks\forms.py:24
 #: .\task_manager\templates\tasks\detail.html:23
 #: .\task_manager\templates\tasks\index.html:28
 msgid "Статус"
 msgstr "Status"
 
-#: .\task_manager\tasks\filter.py:16 .\task_manager\tasks\forms.py:23
+#: .\task_manager\tasks\filter.py:16 .\task_manager\tasks\forms.py:9
 #: .\task_manager\templates\tasks\detail.html:19
 #: .\task_manager\templates\tasks\index.html:30
 msgid "Исполнитель"
 msgstr "Performer"
 
-#: .\task_manager\tasks\filter.py:20 .\task_manager\tasks\forms.py:24
+#: .\task_manager\tasks\filter.py:20 .\task_manager\tasks\forms.py:10
 #: .\task_manager\templates\base.html:28
 #: .\task_manager\templates\labels\index.html:4
 #: .\task_manager\templates\tasks\detail.html:32
@@ -80,15 +82,15 @@ msgstr "Label"
 msgid "Только свои задачи"
 msgstr "Only own tasks"
 
-#: .\task_manager\tasks\forms.py:21
+#: .\task_manager\tasks\forms.py:23
 msgid "Описание"
 msgstr "Description"
 
-#: .\task_manager\tasks\views.py:29
+#: .\task_manager\tasks\views.py:30
 msgid "Задача успешно создана"
 msgstr "Task created success"
 
-#: .\task_manager\tasks\views.py:49
+#: .\task_manager\tasks\views.py:50
 msgid "Задачу может удалить только её автор"
 msgstr "Task can delete only it owner"
 
@@ -262,9 +264,9 @@ msgstr "User update"
 
 #: .\task_manager\users\forms.py:19
 msgid ""
-"Required field. No more than 150 characters. Letters, numbers, and @/./ symbols only"
+"Обязательное поле. Не более 150 символов. Только буквы, цифры и символы @/./"
 "+/-/_."
-msgstr ""
+msgstr "Obligatory field. No more than 150 characters. Letters, numbers, and @/./ characters only"
 
 #: .\task_manager\users\views.py:31
 msgid "Пользователь успешно зарегистрирован"

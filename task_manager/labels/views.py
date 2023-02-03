@@ -23,7 +23,7 @@ class Index(LabelMixin, ListView):
 
 class CreateLabel(LabelMixin, CreateView):
     template_name = 'labels/create.html'
-    success_message = _('Метка успешно создан')
+    success_message = _('Метка успешно создана')
 
 
 class UpdateLabel(LabelMixin, UpdateView):
