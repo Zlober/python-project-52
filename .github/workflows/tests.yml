@@ -26,6 +26,7 @@ jobs:
         run: |
           make lint
       - name: Run tests
+        environment: SECRET_KEY
         env:
           PGDATABASE: ${{ secrets.PGDATABASE }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
