@@ -52,7 +52,7 @@ class Migration(migrations.Migration):
                     on_delete=django.db.models.deletion.PROTECT,
                     to='statuses.statusmodel'),
                  ),
-                ('work_user', models.ForeignKey(
+                ('executor', models.ForeignKey(
                     null=True,
                     on_delete=django.db.models.deletion.PROTECT,
                     to=settings.AUTH_USER_MODEL),

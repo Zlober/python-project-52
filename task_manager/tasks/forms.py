@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 class TaskForm(forms.ModelForm):
-    work_user = forms.ModelChoiceField(
+    executor = forms.ModelChoiceField(
         queryset=User.objects.all(),
         required=False,
         label=_('Исполнитель'),
@@ -23,7 +23,7 @@ class TaskForm(forms.ModelForm):
             'name',
             'description',
             'statuses',
-            'work_user',
+            'executor',
             'labels',
         ]
         labels = {

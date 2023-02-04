@@ -8,7 +8,7 @@
     <div class="card-body bg-light">
 <form class="form-inline center" method="get">
                 {% bootstrap_field filter.form.statuses field_class='ml-2 mr-3' %}
-                {% bootstrap_field filter.form.work_user field_class='ml-2 mr-3' %}
+                {% bootstrap_field filter.form.executor field_class='ml-2 mr-3' %}
                 {% bootstrap_field filter.form.labels field_class='ml-2 mr-3' %}
                 {% bootstrap_field filter.form.self_tasks field_class='ml-2 mr-3' %}
 
@@ -39,7 +39,7 @@
         <td>{{task.name}}</td>
           <td>{{task.statuses.name}}</td>
           <td>{{task.creator}}</td>
-          <td>{{task.work_user.first_name}} {{task.work_user.last_name}}</td>
+          <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
         <td>{{task.created_at|date:"d.m.Y h:m"}}</td>
         <td>
           <a href="{% url 'update_task' task.id%}">Изменить</a>

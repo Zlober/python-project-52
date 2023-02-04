@@ -11,7 +11,7 @@ class FilterForm(django_filters.FilterSet):
         label=_('Статус'),
         queryset=StatusModel.objects.all(),
     )
-    work_user = django_filters.ModelChoiceFilter(
+    executor = django_filters.ModelChoiceFilter(
         label=_('Исполнитель'),
         queryset=User.objects.all(),
     )

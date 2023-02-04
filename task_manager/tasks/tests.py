@@ -27,7 +27,7 @@ class TestTasks(TestCase):
             description='task1 description',
             creator=user1.username,
             statuses=status1,
-            work_user=user1
+            executor=user1
 
         )
 
@@ -69,7 +69,7 @@ class TestTasks(TestCase):
                 'name': 'task_test',
                 'description': 'task description',
                 'statuses': status1.id,
-                'work_user': user1.id,
+                'executor': user1.id,
 
             }
         )
@@ -97,7 +97,7 @@ class TestTasks(TestCase):
                 'name': 'update_task',
                 'description': 'task_description_updated',
                 'statuses': task.statuses.id,
-                'work_user': task.work_user.id,
+                'executor': task.executor.id,
             }
         )
         self.assertEqual(response.status_code, 302)
@@ -137,9 +137,9 @@ class TestTasks(TestCase):
             1
         )
 
-    def test_task_work_user_filter(self):
+    def test_task_executor_filter(self):
         self.assertEqual(
-            TasksModel.objects.filter(work_user__username='user1').count(),
+            TasksModel.objects.filter(executor__username='user1').count(),
             1
         )
 

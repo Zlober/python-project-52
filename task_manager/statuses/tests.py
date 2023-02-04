@@ -111,7 +111,7 @@ class TestStatuses(TestCase):
             description='test_description',
             creator=user1,
             statuses=status1,
-            work_user=user1
+            executor=user1
         )
         self.client.force_login(user2)
         response = self.client.post(
