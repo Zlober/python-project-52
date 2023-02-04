@@ -10,7 +10,7 @@ class TasksModel(models.Model):
     creator = models.CharField(max_length=255)
     executor = models.ForeignKey(User, on_delete=models.PROTECT, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    statuses = models.ForeignKey(StatusModel, on_delete=models.PROTECT)
+    status = models.ForeignKey(StatusModel, on_delete=models.PROTECT)
     labels = models.ManyToManyField(LabelModel, through='TaskLabelModel')
 
     def __str__(self):

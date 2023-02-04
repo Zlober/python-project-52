@@ -22,12 +22,12 @@ class TaskForm(forms.ModelForm):
         fields = [
             'name',
             'description',
-            'statuses',
+            'status',
             'executor',
             'labels',
         ]
         labels = {
             'name': _('Имя'),
             'description': _('Описание'),
-            'statuses': _('Статус'),
+            'status': _('Статус'),
         }

@@ -162,7 +162,7 @@ class TestUser(TestCase):
             name='test_task',
             description='test_description',
             creator=user1,
-            statuses=status1,
+            status=status1,
             executor=user1
         )
         self.client.force_login(user1)

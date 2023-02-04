@@ -74,7 +74,7 @@ class TestLabels(TestCase):
             name='task1',
             creator=user1,
             description='test_task_description',
-            statuses=StatusModel.objects.create(name='status1'),
+            status=StatusModel.objects.create(name='status1'),
             executor=user1,
         )
         TaskLabelModel.objects.create(
