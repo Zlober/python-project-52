@@ -1,7 +1,7 @@
 from django.test import TestCase
 from task_manager.statuses.models import StatusModel
 from django.urls import reverse
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from django.contrib.messages import get_messages
 from task_manager.tasks.models import TasksModel
 
@@ -11,13 +11,13 @@ class TestStatuses(TestCase):
     def setUp(self):
         StatusModel.objects.create(name='status1')
         StatusModel.objects.create(name='status2')
-        User.objects.create_user(
+        Users.objects.create_user(
             username='user1',
             password='123',
             first_name='user1_first_name',
             last_name='user1_last_name',
         )
-        User.objects.create_user(
+        Users.objects.create_user(
             username='user2',
             password='123',
             first_name='user1_first_name',
@@ -35,7 +35,7 @@ class TestStatuses(TestCase):
         self.assertRedirects(response, reverse('login'))
 
     def test_statuses_page_view(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         response = self.client.get(reverse('statuses'))
         self.assertEqual(response.status_code, 200)
@@ -46,7 +46,7 @@ class TestStatuses(TestCase):
         )
 
     def test_statuses_page_create(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         response = self.client.get(reverse('create_status'))
         self.assertEqual(response.status_code, 200)
@@ -66,7 +66,7 @@ class TestStatuses(TestCase):
         self.assertEqual(status_last.name, 'teststatus')
 
     def test_statuses_page_update(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         status1 = StatusModel.objects.get(name='status1')
         self.client.force_login(user1)
         response = self.client.get(
@@ -86,7 +86,7 @@ class TestStatuses(TestCase):
         self.assertRedirects(response, reverse('statuses'))
 
     def test_statuses_page_delete(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         status1 = StatusModel.objects.get(name='status1')
         self.client.force_login(user1)
         response = self.client.get(
@@ -103,8 +103,8 @@ class TestStatuses(TestCase):
         self.assertEqual(str(messages[0]), 'Статус успешно удалён')
 
     def test_statuses_page_delete_used(self):
-        user1 = User.objects.get(username='user1')
-        user2 = User.objects.get(username='user2')
+        user1 = Users.objects.get(username='user1')
+        user2 = Users.objects.get(username='user2')
         status1 = StatusModel.objects.get(name='status1')
         TasksModel.objects.create(
             name='test_task',

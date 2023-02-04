@@ -1,5 +1,5 @@
 from django.test import TestCase
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from task_manager.labels.models import LabelModel
 from django.urls import reverse
 from django.contrib.messages import get_messages
@@ -9,12 +9,12 @@ from task_manager.statuses.models import StatusModel
 
 class TestLabels(TestCase):
     def setUp(self):
-        User.objects.create_user(username='user1', password='123')
+        Users.objects.create_user(username='user1', password='123')
         LabelModel.objects.create(name='label1')
         LabelModel.objects.create(name='label2')
 
     def test_labels_view(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         response = self.client.get(reverse('labels'))
         self.assertEqual(response.status_code, 200)
@@ -24,7 +24,7 @@ class TestLabels(TestCase):
         )
 
     def test_label_create(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         response = self.client.post(
             reverse('create_labels'),
@@ -37,7 +37,7 @@ class TestLabels(TestCase):
         self.assertEqual(LabelModel.objects.count(), 3)
 
     def test_label_update(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         label = LabelModel.objects.last()
         response = self.client.post(
@@ -52,7 +52,7 @@ class TestLabels(TestCase):
 
     def test_label_delete(self):
         label = LabelModel.objects.last()
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         response = self.client.get(
             reverse('delete_labels', args=(label.id,)), follow=True
@@ -67,7 +67,7 @@ class TestLabels(TestCase):
         self.assertEqual(str(messages[0]), 'Метка успешно удалена')
 
     def test_task_with_label_delete(self):
-        user1 = User.objects.get(username='user1')
+        user1 = Users.objects.get(username='user1')
         self.client.force_login(user1)
         label1 = LabelModel.objects.get(name='label1')
         task = TasksModel.objects.create(

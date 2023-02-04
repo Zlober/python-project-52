@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from task_manager.users import forms
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
@@ -11,7 +11,7 @@ from django.db.models import ProtectedError
 
 
 class UserMixin(SuccessMessageMixin, AuthPermissionMixin, PermissionMixin):
-    model = User
+    model = Users
     form_class = forms.RegUserForm
     success_url = '/users'
     url_redirect = 'users'
@@ -20,11 +20,11 @@ class UserMixin(SuccessMessageMixin, AuthPermissionMixin, PermissionMixin):
 class Index(ListView):
     context_object_name = 'users'
     template_name = 'users/index.html'
-    model = User
+    model = Users
 
 
 class CreateUser(SuccessMessageMixin, CreateView):
-    model = User
+    model = Users
     template_name = 'users/reg.html'
     form_class = forms.RegUserForm
     success_message = _('Пользователь успешно зарегистрирован')

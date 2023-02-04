@@ -1,7 +1,7 @@
 from django.test import TestCase
 from task_manager.statuses.models import StatusModel
 from django.urls import reverse
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from django.contrib.messages import get_messages
 from task_manager.tasks.models import TasksModel
 
@@ -9,31 +9,31 @@ from task_manager.tasks.models import TasksModel
 class TestTasks(TestCase):
 
     def setUp(self):
-        user1 = User.objects.create_user(
-            username='user1',
+        Users1 = Users.objects.create_user(
+            username='Users1',
             password='123',
-            first_name='user1_first_name',
-            last_name='user1_last_name',
+            first_name='Users1_first_name',
+            last_name='Users1_last_name',
         )
-        User.objects.create_user(
-            username='user2',
+        Users.objects.create_user(
+            username='Users2',
             password='123',
-            first_name='user2_first_name',
-            last_name='user2_last_name',
+            first_name='Users2_first_name',
+            last_name='Users2_last_name',
         )
         status1 = StatusModel.objects.create(name='status1')
         TasksModel.objects.create(
             name='task1',
             description='task1 description',
-            creator=user1.username,
+            creator=Users1.username,
             status=status1,
-            executor=user1
+            executor=Users1
 
         )
 
     def test_task_view(self):
-        user1 = User.objects.get(username='user1')
-        self.client.force_login(user1)
+        Users1 = Users.objects.get(username='Users1')
+        self.client.force_login(Users1)
         response = self.client.get(reverse('tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/index.html')
@@ -53,23 +53,23 @@ class TestTasks(TestCase):
         self.assertRedirects(response, reverse('login'))
 
     def test_task_create(self):
-        user1 = User.objects.get(username='user1')
-        self.client.force_login(user1)
+        User1 = Users.objects.get(username='Users1')
+        self.client.force_login(User1)
         response = self.client.get(reverse('create_task'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/create.html')
 
     def test_task_create_post(self):
-        user1 = User.objects.get(username='user1')
+        User1 = Users.objects.get(username='Users1')
         status1 = StatusModel.objects.get(name='status1')
-        self.client.force_login(user1)
+        self.client.force_login(User1)
         response = self.client.post(
             reverse('create_task'),
             {
                 'name': 'task_test',
                 'description': 'task description',
                 'status': status1.id,
-                'executor': user1.id,
+                'executor': User1.id,
 
             }
         )
@@ -81,8 +81,8 @@ class TestTasks(TestCase):
         self.assertEqual(task_last.name, 'task_test')
 
     def test_tasks_update_view(self):
-        user1 = User.objects.get(username='user1')
-        self.client.force_login(user1)
+        User1 = Users.objects.get(username='Users1')
+        self.client.force_login(User1)
         task = TasksModel.objects.first()
 
         response = self.client.get(
@@ -107,9 +107,9 @@ class TestTasks(TestCase):
         self.assertRedirects(response, reverse('tasks'))
 
     def test_task_delete_view(self):
-        user1 = User.objects.get(username='user1')
+        User1 = Users.objects.get(username='Users1')
         task = TasksModel.objects.last()
-        self.client.force_login(user1)
+        self.client.force_login(User1)
         response = self.client.get(
             reverse('delete_task', args=(task.id,)),
             follow=True
@@ -122,9 +122,9 @@ class TestTasks(TestCase):
         self.assertEqual(TasksModel.objects.count(), 0)
 
     def test_task_invalid_delete(self):
-        user1 = User.objects.get(username='user2')
+        User1 = Users.objects.get(username='Users2')
         task = TasksModel.objects.last()
-        self.client.force_login(user1)
+        self.client.force_login(User1)
         request = self.client.post(
             reverse('delete_task', kwargs={'pk': task.id})
         )
@@ -139,14 +139,14 @@ class TestTasks(TestCase):
 
     def test_task_executor_filter(self):
         self.assertEqual(
-            TasksModel.objects.filter(executor__username='user1').count(),
+            TasksModel.objects.filter(executor__username='Users1').count(),
             1
         )
 
     def test_own_task_filter(self):
-        user1 = User.objects.get(username='user1')
+        User1 = Users.objects.get(username='Users1')
         self.assertEqual(
-            TasksModel.objects.filter(creator=user1.username).count(),
+            TasksModel.objects.filter(creator=User1.username).count(),
             1
         )
         self.assertEqual(TasksModel.objects.count(), 1)

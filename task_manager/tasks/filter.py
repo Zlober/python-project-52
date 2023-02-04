@@ -2,7 +2,7 @@ import django_filters
 from task_manager.statuses.models import StatusModel
 from task_manager.labels.models import LabelModel
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from django import forms
 
 
@@ -13,7 +13,7 @@ class FilterForm(django_filters.FilterSet):
     )
     executor = django_filters.ModelChoiceFilter(
         label=_('Исполнитель'),
-        queryset=User.objects.all(),
+        queryset=Users.objects.all(),
     )
     labels = django_filters.ModelChoiceFilter(
         label=_('Метки'),

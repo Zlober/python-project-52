@@ -1,13 +1,13 @@
 from django import forms
 from .models import TasksModel
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from task_manager.labels.models import LabelModel
 from django.utils.translation import gettext_lazy as _
 
 
 class TaskForm(forms.ModelForm):
     executor = forms.ModelChoiceField(
-        queryset=User.objects.all(),
+        queryset=Users.objects.all(),
         required=False,
         label=_('Исполнитель'),
     )

@@ -2,7 +2,7 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from .models import TasksModel
 from .forms import TaskForm
-from django.contrib.auth.models import User
+from task_manager.users.models import Users
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
@@ -30,7 +30,7 @@ class CreateTask(TasksMixin, CreateView):
     success_message = _('Задача успешно создана')
 
     def form_valid(self, form):
-        form.instance.creator = User.objects.get(id=self.request.user.pk)
+        form.instance.creator = Users.objects.get(id=self.request.user.pk)
         return super().form_valid(form)
 
 
