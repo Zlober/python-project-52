@@ -37,7 +37,7 @@
       <tr>
           <td><a href="{% url 'view_task' task.id %}">{{task.id}}</a></td>
         <td>{{task.name}}</td>
-          <td>{{task.statuses.name}}</td>
+          <td>{{task.status.name}}</td>
           <td>{{task.creator}}</td>
           <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
         <td>{{task.created_at|date:"d.m.Y h:m"}}</td>
