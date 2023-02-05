@@ -16,7 +16,7 @@ class FilterForm(django_filters.FilterSet):
         queryset=Users.objects.all(),
     )
     labels = django_filters.ModelChoiceFilter(
-        label=_('Метки'),
+        label=_('Метка'),
         queryset=LabelModel.objects.all(),
     )
     self_tasks = django_filters.BooleanFilter(
