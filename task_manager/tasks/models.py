@@ -7,8 +7,17 @@ from task_manager.labels.models import LabelModel
 class TasksModel(models.Model):
     name = models.CharField(max_length=255, unique=True)
     description = models.TextField()
-    creator = models.ForeignKey(Users, on_delete=models.PROTECT, related_name='creator')
-    executor = models.ForeignKey(Users, on_delete=models.PROTECT, null=True, related_name='executor')
+    creator = models.ForeignKey(
+        Users,
+        on_delete=models.PROTECT,
+        related_name='creator'
+    )
+    executor = models.ForeignKey(
+        Users,
+        on_delete=models.PROTECT,
+        null=True,
+        related_name='executor'
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.ForeignKey(StatusModel, on_delete=models.PROTECT)
     labels = models.ManyToManyField(LabelModel, through='TaskLabelModel')
