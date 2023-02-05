@@ -7,7 +7,7 @@ from django import forms
 
 
 class FilterForm(django_filters.FilterSet):
-    statuses = django_filters.ModelChoiceFilter(
+    status = django_filters.ModelChoiceFilter(
         label=_('Статус'),
         queryset=StatusModel.objects.all(),
     )

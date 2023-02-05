@@ -46,7 +46,7 @@ class DeleteTask(SuccessMessageMixin, AuthPermissionMixin, DeleteView):
     success_message = 'Задача успешно удалена'
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.username != self.get_object().creator:
+        if request.user.pk != self.get_object().creator.pk:
             messages.error(
                 request,
                 _('Задачу может удалить только её автор'),

@@ -7,7 +7,7 @@
     <div class="card mb-3">
     <div class="card-body bg-light">
 <form class="form-inline center" method="get">
-                {% bootstrap_field filter.form.statuses field_class='ml-2 mr-3' %}
+                {% bootstrap_field filter.form.status field_class='ml-2 mr-3' %}
                 {% bootstrap_field filter.form.executor field_class='ml-2 mr-3' %}
                 {% bootstrap_field filter.form.labels field_class='ml-2 mr-3' %}
                 {% bootstrap_field filter.form.self_tasks field_class='ml-2 mr-3' %}
@@ -32,6 +32,7 @@
     </tr>
   </thead>
   <tbody>
+  {{ request }}
 {% if tasks %}
     {% for task in tasks %}
       <tr>
