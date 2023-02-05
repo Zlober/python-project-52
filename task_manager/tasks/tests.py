@@ -9,7 +9,7 @@ from task_manager.tasks.models import TasksModel
 class TestTasks(TestCase):
 
     def setUp(self):
-        Users1 = Users.objects.create_user(
+        User1 = Users.objects.create_user(
             username='Users1',
             password='123',
             first_name='Users1_first_name',
@@ -25,15 +25,15 @@ class TestTasks(TestCase):
         TasksModel.objects.create(
             name='task1',
             description='task1 description',
-            creator=Users1.username,
+            creator=User1,
             status=status1,
-            executor=Users1
+            executor=User1
 
         )
 
     def test_task_view(self):
-        Users1 = Users.objects.get(username='Users1')
-        self.client.force_login(Users1)
+        User1 = Users.objects.get(username='Users1')
+        self.client.force_login(User1)
         response = self.client.get(reverse('tasks'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'tasks/index.html')
@@ -144,9 +144,8 @@ class TestTasks(TestCase):
         )
 
     def test_own_task_filter(self):
-        User1 = Users.objects.get(username='Users1')
         self.assertEqual(
-            TasksModel.objects.filter(creator=User1.username).count(),
+            TasksModel.objects.filter(creator__username='Users1').count(),
             1
         )
         self.assertEqual(TasksModel.objects.count(), 1)
