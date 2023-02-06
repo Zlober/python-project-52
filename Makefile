@@ -21,8 +21,5 @@ lint:
 	poetry run flake8 task_manager/users
 
 tests:
-	poetry run python manage.py test
-
-tests-cov:
 	poetry run coverage run manage.py test
 	poetry run coverage xml
